@@ -1,4 +1,5 @@
 #include "config.h"
+#include "triangle_mesh.h"
 
 unsigned int make_module(const std::string &filepath, unsigned int module_type);
 
@@ -116,6 +117,8 @@ int main() {
 
   glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
 
+  TriangleMesh* triangle = new TriangleMesh();
+
   unsigned int shader =
       make_shader("../test/what_are_shaders/shaders/vertex.txt",
                   "../test/what_are_shaders/shaders/fragment.txt");
@@ -124,8 +127,10 @@ int main() {
     glfwPollEvents();
 
     glClear(GL_COLOR_BUFFER_BIT);
-
     glUseProgram(shader);
+
+    triangle->draw();
+
     glfwSwapBuffers(window);
   }
 

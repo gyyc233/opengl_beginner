@@ -28,6 +28,7 @@ target_link_libraries(hello_window
 # what_are_shaders
 add_executable(what_are_shaders
     test/what_are_shaders/config.h
+    test/what_are_shaders/triangle_mesh.cc
     test/what_are_shaders/what_are_shaders.cc
     test/what_are_shaders/glad.c
 )
