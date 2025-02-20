@@ -117,7 +117,7 @@ int main() {
 
   glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
 
-  TriangleMesh* triangle = new TriangleMesh();
+  TriangleMesh *triangle = new TriangleMesh();
 
   unsigned int shader =
       make_shader("../test/what_are_shaders/shaders/vertex.txt",

@@ -4,11 +4,13 @@
   - [shape assembly 图元装配](#shape-assembly-图元装配)
   - [eometry Shader 几何着色器](#eometry-shader-几何着色器)
   - [Rasterization 光栅化](#rasterization-光栅化)
-  - [fragment share 片段着色器](#fragment-share-片段着色器)
+  - [fragment shadre 片段着色器](#fragment-shadre-片段着色器)
   - [test and blending](#test-and-blending)
 - [顶点](#顶点)
   - [把顶点数据储存在显卡的内存中，用VBO这个顶点缓冲对象管理](#把顶点数据储存在显卡的内存中用vbo这个顶点缓冲对象管理)
 - [vertex shader 顶点着色器](#vertex-shader-顶点着色器-1)
+  - [编译着色器](#编译着色器)
+- [fragment shader 片段着色器](#fragment-shader-片段着色器)
 
 # OPenGL
 
@@ -49,7 +51,7 @@
 
 > OpenGL中的一个片段是OpenGL渲染一个像素所需的所有数据
 
-## fragment share 片段着色器
+## fragment shadre 片段着色器
 
 片段着色器的主要目的是计算一个像素的最终颜色，这也是所有OpenGL高级效果产生的地方。通常，片段着色器包含3D场景的数据（比如光照、阴影、光的颜色等等），这些数据可以被用来计算最终像素的颜色
 
@@ -85,3 +87,74 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // �
 现在我们已经把顶点数据储存在显卡的内存中，用VBO这个顶点缓冲对象管理。下面我们会创建一个顶点和片段着色器来真正处理这些数据
 
 # vertex shader 顶点着色器
+
+如果我们打算做渲染的话，现代OpenGL需要我们至少设置一个顶点和一个片段着色器
+
+- 用着色器语言GLSL(OpenGL Shading Language)编写顶点着色器，然后编译这个着色器，这样我们就可以在程序中使用它
+
+```c
+#version 330 core
+
+layout (location = 0) in vec3 position;
+
+void main()
+{
+    gl_Position = vec4(position.x, position.y, position.z, 1.0);
+}
+```
+- 使用in关键字，在顶点着色器中声明所有的输入顶点属性(Input Vertex Attribute)
+- 创建一个vec3输入变量position, 通过layout (location = 0)设定了输入变量的位置值(Location)
+- 把位置数据赋值给预定义的gl_Position变量，它在幕后是vec4类型的。在main函数的最后，我们将gl_Position设置的值会成为该顶点着色器的输出
+
+
+## 编译着色器
+
+为了能够让OpenGL使用顶点着色器源码，我们必须在运行时动态编译它的源码
+
+```cpp
+GLuint vertexShader;
+vertexShader = glCreateShader(GL_VERTEX_SHADER); // 创建顶点着色器
+
+glShaderSource(vertexShader, 1, &vertexShaderSource, NULL); // 把这个着色器源码附加到着色器对象
+// glShaderSource函数把要编译的着色器对象作为第一个参数。第二参数指定了传递的源码字符串数量，这里只有一个。第三个参数是顶点着色器真正的源码，第四个参数我们先设置为NULL
+
+GLint success;
+GLchar infoLog[512];
+glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+if(!success)
+{
+    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+}
+```
+
+# fragment shader 片段着色器
+
+片段着色器全是关于计算你的像素最后的颜色输出
+
+- 在计算机图形中颜色被表示为有4个元素的数组：红色、绿色、蓝色和alpha(透明度)分量，通常缩写为RGBA。当在OpenGL或GLSL中定义一个颜色的时候，我们把颜色每个分量的强度设置在0.0到1.0之间。比如说我们设置红为1.0f，绿为1.0f，我们会得到两个颜色的混合色，即黄色
+
+```c
+#version 330 core
+
+out vec4 color;
+
+void main()
+{
+    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+}
+```
+
+片段着色器只需要一个输出变量，这个变量是一个4分量向量，它表示的是最终的输出颜色，我们应该自己将其计算出来。我们可以用out关键字声明输出变量，这里我们命名为color
+
+编译片段着色器的过程与顶点着色器类似，只不过我们使用GL_FRAGMENT_SHADER常量作为着色器类型：
+
+```cpp
+GLuint fragmentShader;
+fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+glShaderSource(fragmentShader, 1, &fragmentShaderSource, null);
+glCompileShader(fragmentShader);
+```
+
+两个着色器现在都编译了，剩下的事情是把两个着色器对象链接到一个用来渲染的着色器程序(Shader Program)中
