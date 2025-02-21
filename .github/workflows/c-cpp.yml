@@ -19,5 +19,5 @@ jobs:
       run: sudo mkdir build
     - name: cd _build
       run: cd build/
-    - name: ls_1
-      run: ls
+    - name: pwd
+      run: pwd
