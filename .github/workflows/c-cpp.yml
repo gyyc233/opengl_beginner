@@ -18,6 +18,6 @@ jobs:
     - name: build
       run: sudo mkdir build
     - name: cd _build
-      run: sudo cd build
+      run: cd build/
     - name: ls_1
       run: ls
