@@ -20,6 +20,6 @@ jobs:
     - name: ls
       run: ls
     - name: cd_build
-      run: cd build/
+      run: cd ./build/
     - name: ls2
       run: ls
