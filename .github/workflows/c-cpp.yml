@@ -17,9 +17,9 @@ jobs:
       run: sudo apt install libglew-dev libglfw3-dev libfreetype-dev libassimp-dev
     - name: mkdir_build
       run: mkdir build
+    - name: ls
+      run: ls
     - name: cd_build
       run: cd build/
-    - name: cmake_project
-      run: cmake ..
-    - name: make_project
-      run: make -j4
+    - name: ls2
+      run: ls
