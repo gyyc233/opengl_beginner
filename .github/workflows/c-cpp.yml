@@ -16,11 +16,7 @@ jobs:
     - name: install_deps
       run: sudo apt install libglew-dev libglfw3-dev libfreetype-dev libassimp-dev
     - name: build
-      run: sudo mkdir build
-    - name: cd _build
-      run: cd /home/runner/work/opengl_beginner/opengl_beginner/build
+      run: mkdir build
     - name: cmake
       run: cmake ..
-    - name: build
-      run: make -j8
-      
+        working-directory: ./build/
