@@ -16,4 +16,8 @@ jobs:
     - name: install_deps
       run: sudo apt install libglew-dev libglfw3-dev libfreetype-dev libassimp-dev
     - name: build
-      run: sudo ./build_linux.sh
+      run: sudo mkdir build
+    - name: cd _build
+      run: sudo cd build
+    - name: ls_1
+      run: ls
