@@ -18,6 +18,9 @@ jobs:
     - name: build
       run: sudo mkdir build
     - name: cd _build
-      run: /home/runner/work/opengl_beginner/opengl_beginner/build
-    - name: build
+      run: cd /home/runner/work/opengl_beginner/opengl_beginner/build
+    - name: cmake
       run: cmake ..
+    - name: build
+      run: make -j8
+      
