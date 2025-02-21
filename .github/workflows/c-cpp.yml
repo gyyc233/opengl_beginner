@@ -18,7 +18,7 @@ jobs:
     - name: mkdir_build
       run: mkdir build
     - name: cd_build
-      run: cd build
+      run: cd build/
     - name: cmake_project
       run: cmake ..
     - name: make_project
