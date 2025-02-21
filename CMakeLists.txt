@@ -6,6 +6,11 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_LIBRARIES "-lX11 -ldl") # fixed undefined reference to symbol 'dlclose@@GLIBC_2.2.5'
 
+# set gdb debug or release 
+set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 
@@ -39,6 +44,22 @@ target_include_directories(what_are_shaders
 )
 
 target_link_libraries(what_are_shaders
+    glfw
+    OpenGL::GL 
+)
+
+# triangle_test
+add_executable(triangle_test
+    test/triangle_test/triangle_test.cc
+    test/triangle_test/glad.c
+)
+
+target_include_directories(triangle_test 
+    PRIVATE
+    dependencies 
+)
+
+target_link_libraries(triangle_test
     glfw
     OpenGL::GL 
 )
