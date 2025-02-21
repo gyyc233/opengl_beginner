@@ -18,6 +18,6 @@ jobs:
     - name: build
       run: sudo mkdir build
     - name: cd _build
-      run: cd build/
-    - name: pwd
-      run: pwd
+      run: /home/runner/work/opengl_beginner/opengl_beginner/build
+    - name: build
+      run: cmake ..
