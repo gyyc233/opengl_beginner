@@ -20,3 +20,6 @@ jobs:
     - name: cmake
       run: cmake ..
       working-directory: ./build/
+    - name: build
+      run: make -j8
+      working-directory: ./build/
