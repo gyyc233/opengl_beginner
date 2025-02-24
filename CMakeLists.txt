@@ -63,3 +63,20 @@ target_link_libraries(triangle_test
     glfw
     OpenGL::GL 
 )
+
+# shader_test
+add_executable(shader_test
+    test/shader_test/shader_test.cc
+    test/shader_test/shader.cc
+    test/shader_test/glad.c
+)
+
+target_include_directories(shader_test 
+    PRIVATE
+    dependencies 
+)
+
+target_link_libraries(shader_test
+    glfw
+    OpenGL::GL 
+)
