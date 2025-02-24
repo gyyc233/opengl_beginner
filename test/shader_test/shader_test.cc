@@ -40,11 +40,17 @@ int main() {
 
   // Set up vertex data (and buffer(s)) and attribute pointers
   GLfloat vertices[] = {
-      // Positions         // Colors
+      // Positions         // Colors [R,G,B]
       0.5f,  -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Right
       -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom Left
       0.0f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f  // Top
   };
+
+  GLfloat vertices_reversed[] = {// Positions         // Colors
+                                 0.5f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f,
+                                 -0.5f, 0.5f,  0.0f, 0.0f, 1.0f, 0.0f,
+                                 0.0f,  -0.5f, 0.0f, 1.0f, 0.0f, 0.0f};
+
   GLuint VBO, VAO;
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
@@ -53,7 +59,9 @@ int main() {
   glBindVertexArray(VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_reversed), vertices_reversed,
+               GL_STATIC_DRAW);
 
   // Position attribute
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
@@ -65,6 +73,9 @@ int main() {
   glEnableVertexAttribArray(1);
 
   glBindVertexArray(0); // Unbind VAO
+
+  float offset_x = 0.1f;
+  float offset_y = 0.0f;
 
   // Game loop
   while (!glfwWindowShouldClose(window)) {
@@ -79,9 +90,18 @@ int main() {
 
     // Draw the triangle
     ourShader.Use();
+
+    // offset
+    GLint vertex_offset_location =
+        glGetUniformLocation(ourShader.Program, "offset_x");
+    glUniform1f(vertex_offset_location, offset_x);
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
+
+    offset_x+=0.0001f;
+    if(offset_x>=0.5f)
+        break;
 
     // Swap the screen buffers
     glfwSwapBuffers(window);
