@@ -99,9 +99,9 @@ int main() {
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
 
-    offset_x+=0.0001f;
-    if(offset_x>=0.5f)
-        break;
+    offset_x += 0.0001f;
+    if (offset_x >= 0.5f)
+      break;
 
     // Swap the screen buffers
     glfwSwapBuffers(window);

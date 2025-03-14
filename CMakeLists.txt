@@ -80,3 +80,22 @@ target_link_libraries(shader_test
     glfw
     OpenGL::GL 
 )
+
+# textures
+# draw_the_texture
+add_executable(draw_the_texture
+    textures/draw_the_texture.cc
+    textures/shader.cc
+    textures/glad.c
+    textures/material.cc
+)
+
+target_include_directories(draw_the_texture 
+    PRIVATE
+    dependencies 
+)
+
+target_link_libraries(draw_the_texture
+    glfw
+    OpenGL::GL 
+)
