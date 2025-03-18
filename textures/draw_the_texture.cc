@@ -1,6 +1,6 @@
 #include "material.h"
-#include "shader.h"
 #include "mesh.h"
+#include "shader.h"
 #include <iostream>
 #include <vector>
 
@@ -33,7 +33,7 @@ int main() {
   //(left, top, width, height)
   glViewport(0, 0, w, h);
 
-  Mesh *mesh=new Mesh();
+  Mesh *mesh = new Mesh();
   Material *material = new Material("../textures/img/img_test.png");
 
   // Build and compile our shader program

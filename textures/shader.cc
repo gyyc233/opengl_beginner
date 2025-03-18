@@ -1,7 +1,7 @@
 #include "shader.h"
 
 Shader::~Shader() {
-  if(this->Program){
+  if (this->Program) {
     glDeleteShader(this->Program);
   }
 }

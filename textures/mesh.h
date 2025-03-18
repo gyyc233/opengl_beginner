@@ -8,16 +8,15 @@
 #include <iostream>
 #include <vector>
 
-
 class Mesh {
 public:
-Mesh();
-void draw();
-~Mesh();
+  Mesh();
+  void draw();
+  ~Mesh();
 
 private:
-unsigned int EBO, VAO, element_count;
-std::vector<unsigned int> VBOs;
+  unsigned int EBO, VAO, element_count;
+  std::vector<unsigned int> VBOs;
 };
 
 #endif
