@@ -1,3 +1,10 @@
+- [Shader 着色器](#shader-着色器)
+  - [GLSL](#glsl)
+  - [GLSL 数据类型](#glsl-数据类型)
+  - [着色器的输入与输出](#着色器的输入与输出)
+  - [uniform](#uniform)
+  - [把颜色数据加进顶点数据](#把颜色数据加进顶点数据)
+  - [shader class](#shader-class)
 
 # Shader 着色器
 

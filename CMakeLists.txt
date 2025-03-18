@@ -88,6 +88,7 @@ add_executable(draw_the_texture
     textures/shader.cc
     textures/glad.c
     textures/material.cc
+    textures/mesh.cc
 )
 
 target_include_directories(draw_the_texture 

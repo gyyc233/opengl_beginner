@@ -1,6 +1,10 @@
 #include "shader.h"
 
-Shader::~Shader() {}
+Shader::~Shader() {
+  if(this->Program){
+    glDeleteShader(this->Program);
+  }
+}
 
 Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
   // 1. Retrieve the vertex/fragment source code from filePath

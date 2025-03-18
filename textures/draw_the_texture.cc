@@ -1,6 +1,8 @@
 #include "material.h"
 #include "shader.h"
+#include "mesh.h"
 #include <iostream>
+#include <vector>
 
 int main() {
 
@@ -14,7 +16,7 @@ int main() {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-  window = glfwCreateWindow(640, 480, "Draw the texture!", NULL, NULL);
+  window = glfwCreateWindow(800, 480, "Draw the texture!", NULL, NULL);
   glfwMakeContextCurrent(window);
 
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -31,22 +33,27 @@ int main() {
   //(left, top, width, height)
   glViewport(0, 0, w, h);
 
+  Mesh *mesh=new Mesh();
+  Material *material = new Material("../textures/img/img_test.png");
+
   // Build and compile our shader program
   Shader ourShader("../textures/shaders/vertex.txt",
                    "../textures/shaders/fragment.txt");
-  Material *material = new Material("../textures/img/img_test.png");
 
   while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
 
     glClear(GL_COLOR_BUFFER_BIT);
     ourShader.Use();
+
     material->use();
+    mesh->draw();
 
     glfwSwapBuffers(window);
   }
 
   delete material;
+  delete mesh;
   glfwTerminate();
   return 0;
 }
