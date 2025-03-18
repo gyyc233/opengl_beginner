@@ -86,4 +86,7 @@ Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
   glDeleteShader(fragment);
 }
 
-void Shader::Use() { glUseProgram(this->Program); }
+void Shader::Use() {
+  glUseProgram(this->Program);
+  glUniform1i(glGetUniformLocation(this->Program, "material"), 0);
+}

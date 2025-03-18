@@ -9,5 +9,6 @@ uniform sampler2D marika;
 
 void main()
 {
-    screenColor = texture(marika, fragmentTexCoord);
+    vec3 baseColor = texture(marika, fragmentTexCoord).rgb;
+    screenColor = vec4(baseColor, 0.1);
 }

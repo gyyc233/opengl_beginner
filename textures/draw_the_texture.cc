@@ -16,6 +16,9 @@ int main() {
   Material *material = new Material("../textures/img/img_test.png");
   Shader ourShader("../textures/shaders/vertex.txt",
                    "../textures/shaders/fragment.txt");
+  // configure alpha blending
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   while (!gl_window.checkClose()) {
     glfwPollEvents();

@@ -19,12 +19,18 @@ Material::Material(const char *filename) {
   stbi_image_free(data);
 
   // Configure sampler
+  // 设置环绕模式
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  // 设置采样模式
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 Material::~Material() { glDeleteTextures(1, &texture); }
 
-void Material::use() { glBindTexture(GL_TEXTURE_2D, texture); }
+void Material::use() {
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, texture);
+
+}
